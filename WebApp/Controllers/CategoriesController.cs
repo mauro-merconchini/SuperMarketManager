@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -13,7 +14,10 @@ namespace WebApp.Controllers
         {
             if (id != null)
             {
-                return new ContentResult { Content = id.ToString() };
+                //return new ContentResult { Content = id.ToString() };
+
+                Category category = new Category { Id = id.HasValue ? id.Value: 0 };
+                return View("Edit", category);
             }
             
             return new ContentResult { Content = "ERROR: null or invalid id" };
