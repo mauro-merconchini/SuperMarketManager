@@ -14,8 +14,6 @@ namespace WebApp.Controllers
         {
             if (id != null)
             {
-                //return new ContentResult { Content = id.ToString() };
-
                 Category category = new Category { Id = id.HasValue ? id.Value: 0 };
                 return View("Edit", category);
             }
