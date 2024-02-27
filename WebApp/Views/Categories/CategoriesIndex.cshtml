@@ -1,13 +1,16 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using WebApp.Models;
+@model List<Category>
 
-<h3>Categories</h3>
+@section title
+{
+    <h3>Categories</h3>
+}
+
 <ul>
-    <li>
-        <a href="/categories/edit/1">Beverage</a>
-    </li>
-    <li>
-        <a href="/categories/edit/2">Meat</a>
-    </li>
+    @foreach (Category category in Model)
+    {
+        <li>
+            <a href="/categories/edit/@category.Id">@category.Name</a>
+        </li>
+    }
 </ul>

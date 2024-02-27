@@ -5,4 +5,7 @@
 @using WebApp.Models;
 @model Category
 
-<h3>Category: @Model.Id</h3>
+@section title
+{
+    <h3>@Model.Name</h3>
+}

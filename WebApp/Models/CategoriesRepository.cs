@@ -1,0 +1,66 @@
+﻿namespace WebApp.Models
+{
+    public static class CategoriesRepository
+    {
+        private static List<Category> _categories = new List<Category>()
+        {
+            new Category { Id = 1, Name = "Beverage", Description = "Beverage" },
+            new Category { Id = 2, Name = "Bakery", Description = "Bakery" },
+            new Category { Id = 3, Name = "Meat", Description = "Meat" },
+        };
+
+        public static void AddCategoriey (Category category)
+        {
+            var maxId = _categories.Max (c => c.Id);
+            category.Id = maxId + 1;
+            _categories.Add (category);
+        }
+
+        public static List<Category> GetCategories() 
+        {  
+            return _categories; 
+        }
+
+        public static Category? GetCategoryById(int id)
+        {
+            Category? category = _categories.FirstOrDefault (c => c.Id == id);
+            
+            if (category != null)
+            {
+                return new Category
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                    Description = category.Description,
+                };
+            }
+
+            return null;
+        }
+
+        public static void UpdateCategory(int id, Category category)
+        {
+            if (category == null || category.Id != id)
+            {
+                return;
+            }
+
+            Category? categoryToUpdate = GetCategoryById(id);
+            if (categoryToUpdate != null)
+            {
+                category.Name = categoryToUpdate.Name;
+                category.Description = categoryToUpdate.Description;
+            }
+        }
+
+        public static void DeleteCategory(int id)
+        {
+            Category? category = _categories.FirstOrDefault (c => c.Id == id);
+
+            if (category != null)
+            {
+                _categories.Remove (category);
+            }
+        }
+    }
+}
