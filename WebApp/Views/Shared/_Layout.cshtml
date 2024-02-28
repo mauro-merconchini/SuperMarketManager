@@ -43,5 +43,7 @@
                 @RenderBody()
             </div>
         </div>
+        @* Here is how I can do JS stuff. I can create a section of JS that will run before the body closes, but is not required for every view. *@
+        @await RenderSectionAsync("Scripts", required: false)
     </body>
 </html>
