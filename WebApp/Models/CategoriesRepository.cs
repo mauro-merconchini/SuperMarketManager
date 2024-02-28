@@ -9,7 +9,7 @@
             new Category { Id = 3, Name = "Meat", Description = "Meat" },
         };
 
-        public static void AddCategoriey (Category category)
+        public static void AddCategory (Category category)
         {
             var maxId = _categories.Max (c => c.Id);
             category.Id = maxId + 1;
