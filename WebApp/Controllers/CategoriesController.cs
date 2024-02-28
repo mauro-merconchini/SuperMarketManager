@@ -14,6 +14,8 @@ namespace WebApp.Controllers
         // Does HttpGet by default when nothing is specified
         public IActionResult Edit(int id)
         {
+            ViewBag.Action = "edit";
+
             Category? category = CategoriesRepository.GetCategoryById(id);
             return View("Edit", category);
         }
@@ -31,7 +33,9 @@ namespace WebApp.Controllers
         }
 
         public IActionResult Add() 
-        { 
+        {
+            ViewBag.Action = "add";
+
             return View("Add"); 
         }
 
