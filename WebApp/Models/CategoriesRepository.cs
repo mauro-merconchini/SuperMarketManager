@@ -45,11 +45,11 @@
                 return;
             }
 
-            Category? categoryToUpdate = GetCategoryById(id);
+            Category? categoryToUpdate = _categories.FirstOrDefault(c => c.Id == id);
             if (categoryToUpdate != null)
             {
-                category.Name = categoryToUpdate.Name;
-                category.Description = categoryToUpdate.Description;
+                categoryToUpdate.Name = category.Name;
+                categoryToUpdate.Description = category.Description;
             }
         }
 
