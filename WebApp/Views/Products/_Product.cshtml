@@ -1,0 +1,87 @@
+﻿@model ProductViewModel
+@{
+    string action = ViewBag.Action ?? string.Empty;
+}
+
+<form asp-controller="products" asp-action="@action" method="post">
+    @if (action.ToLower().Equals("edit"))
+    {
+        <input type="hidden" asp-for="Product.Id" /> @* The course said that this is necessary, but it still works without it. *@
+    }
+
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <!-- Category ID -->
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Product.CategoryId" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <!-- Apply Bootstrap classes to style the select dropdown -->
+            <select asp-for="Product.CategoryId" class="form-select">
+                
+                <option>- Please Select -</option>
+
+                @if (Model.Categories != null && Model.Categories.Count() > 0)
+                {
+                    @foreach (Category category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                }
+
+            </select>
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Product.CategoryId"></span>
+        </div>
+    </div>
+
+    @* Product Name *@
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Product.Name" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="text" asp-for="Product.Name" class="form-control" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Product.Name"></span>
+        </div>
+    </div>
+
+    @* Price *@
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Product.Price" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="number" asp-for="Product.Price" class="form-control" min="0" step="any" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Product.Price"></span>
+        </div>
+    </div>
+
+    @* Quantity *@
+    <div class="row mb-3">
+        <div class="col-2">
+            <label asp-for="Product.Quantity" class="col-form-label"></label>
+        </div>
+        <div class="col-6">
+            <input type="number" asp-for="Product.Quantity" class="form-control" min="0" />
+        </div>
+        <div class="col">
+            <span class="text-danger" asp-validation-for="Product.Quantity"></span>
+        </div>
+    </div>
+
+    @* Submit Button *@
+    <div class="row mb-3">
+        <div class="col-2">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</form>

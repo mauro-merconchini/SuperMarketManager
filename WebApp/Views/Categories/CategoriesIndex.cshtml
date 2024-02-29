@@ -14,7 +14,7 @@
     </script>
 }
 
- @if (Model != null && Model.Count() > 0)
+@if (Model != null && Model.Count() > 0)
 {
     <table class="table table-striped">
         <thead>
@@ -41,6 +41,6 @@
             }
         </tbody>
     </table>
-
-    <a class="btn btn-primary" asp-controller="categories" asp-action="add">Add</a>
 }
+
+<a class="btn btn-primary" asp-controller="categories" asp-action="add">Add</a>
