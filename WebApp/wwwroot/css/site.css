@@ -1,0 +1,7 @@
+﻿tr.highlight > td {
+    background-color: yellow
+}
+
+tr.highlight-hover > td {
+    background-color: lightgrey
+}

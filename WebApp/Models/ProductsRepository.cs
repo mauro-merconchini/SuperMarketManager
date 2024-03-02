@@ -27,6 +27,18 @@
 
         public static List<Product> GetProducts() => _products;
 
+        public static List<Product> GetProductsByCategoryId(int categoryId)
+        {
+            var productsMatched = _products.Where(p => p.CategoryId == categoryId).ToList();
+
+            if (productsMatched.Any())
+            {
+                return productsMatched;
+            }
+
+            return new List<Product>();
+        }
+
         public static Product? GetProductById(int productId)
         {
             var product = _products.FirstOrDefault(p => p.Id == productId);

@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Supermarket Management</title>
         <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" asp-append-version="true" />
     </head>
     <body>
 
@@ -24,6 +25,9 @@
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="home" asp-action="index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="sales" asp-action="index">Sales</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="categories" asp-action="index">Categories</a>
@@ -46,6 +50,13 @@
                 @RenderBody()
             </div>
         </div>
+        @* Referencing JQuery so that we can render partial views (such as the product list in the cashier sale page) *@
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous">
+        </script>
+
         @* Here is how I can do JS stuff. I can create a section of JS that will run before the body closes, but is not required for every view. *@
         @await RenderSectionAsync("Scripts", required: false)
     </body>
