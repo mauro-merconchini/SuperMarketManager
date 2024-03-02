@@ -25,7 +25,7 @@
                     t.DateTime >= startDate.Date && t.DateTime <= endDate.Date.AddDays(1).Date);
         }
 
-        public static void Add(string cashierName, int productId, string productName, double price, int qtyBefore, int qtyAfter)
+        public static void Add(string cashierName, int productId, string productName, double price, int qtyBefore, int qtySold)
         {
             var transaction = new Transaction
             {
@@ -34,7 +34,7 @@
                 DateTime = DateTime.Now,
                 Price = price,
                 QuantityBefore = qtyBefore,
-                QuantityAfter = qtyAfter,
+                QuantitySold = qtySold,
                 CashierName = cashierName
             };
 

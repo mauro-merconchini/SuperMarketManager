@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Transaction>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cashier Name</th>
+            <th>Product Name</th>
+            <th>Date Time</th>
+            <th>Qty Before</th>
+            <th>Qty Sold</th>
+            <th>Qty After</th>
+            <th>Sold Amt</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.CashierName</td>
+                <td>@transaction.ProductName</td>
+                <td>@transaction.DateTime.ToString("MM/dd hh:mm")</td>
+                <td>@transaction.QuantityBefore</td>
+                <td>@transaction.QuantitySold</td>
+                <td>@(transaction.QuantityBefore - transaction.QuantitySold)</td>
+                <td>@(string.Format("{0:c}", transaction.QuantitySold * transaction.Price))</td>
+            </tr>
+        }
+    </tbody>
+</table>
