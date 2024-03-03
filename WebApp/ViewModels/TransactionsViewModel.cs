@@ -1,0 +1,16 @@
+﻿using System.ComponentModel.DataAnnotations;
+using WebApp.Models;
+
+namespace WebApp.ViewModels
+{
+    public class TransactionsViewModel
+    {
+        [Display(Name = "Cashier Name")]
+        public string? CashierName { get; set; } = string.Empty;
+        [Display(Name = "Start Date")]
+        public DateTime StartDate { get; set; } = DateTime.Today;
+        [Display(Name = "End Date")]
+        public DateTime EndDate { get; set; } = DateTime.Today;
+        public IEnumerable<Transaction> Transactions { get; set; } = new List<Transaction>();
+    }
+}

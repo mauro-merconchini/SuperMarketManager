@@ -1,7 +1,23 @@
 ﻿tr.highlight > td {
-    background-color: yellow
+    background-color: yellow;
 }
 
 tr.highlight-hover > td {
-    background-color: lightgrey
+    background-color: lightgrey;
+}
+
+@media print{
+    body * {
+        visibility: hidden;
+    }
+
+    #printarea, #printarea * {
+        visibility: visible;
+    }
+
+    #printarea {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
 }
