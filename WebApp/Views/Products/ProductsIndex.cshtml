@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<CoreBusiness.Product>
 
 @section Title
 {
@@ -28,12 +28,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (Product product in Model)
+            @foreach (var product in Model)
             {
                 <tr>
-                    <td>@CategoriesRepository.GetCategoryById((int)product.CategoryId).Name</td>
+                    <td>@product.Category?.Name</td>
                     <td>@product.Name</td>
-                    <td>$@($"{product.Price:0.00}")</td>
+                    <td>@product.Price?.ToString("c")</td>
                     <td>@product.Quantity</td>
 
                     @* Generate a link using tag helpers *@

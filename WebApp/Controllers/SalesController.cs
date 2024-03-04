@@ -1,56 +1,58 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApp.Models;
+using CoreBusiness;
 using WebApp.ViewModels;
+using UseCases.CategoriesUseCases;
+using UseCases;
+using UseCases.Interfaces;
 
 namespace WebApp.Controllers
 {
     public class SalesController : Controller
     {
+        private readonly IViewCategoriesUseCase viewCategoriesUseCase;
+        private readonly IViewSelectedProductUseCase viewSelectedProductUseCase;
+        private readonly ISellProductUseCase sellProductUseCase;
+
+        public SalesController(IViewCategoriesUseCase viewCategoriesUseCase,
+            IViewSelectedProductUseCase viewSelectedProductUseCase,
+            ISellProductUseCase sellProductUseCase)
+        {
+            this.viewCategoriesUseCase = viewCategoriesUseCase;
+            this.viewSelectedProductUseCase = viewSelectedProductUseCase;
+            this.sellProductUseCase = sellProductUseCase;
+        }
+
         public IActionResult Index()
         {
             var salesViewModel = new SalesViewModel
             {
-                Categories = CategoriesRepository.GetCategories(),
-                Products = ProductsRepository.GetProducts(),
+                Categories = viewCategoriesUseCase.Execute()
             };
-
             return View("SalesIndex", salesViewModel);
         }
 
-		public IActionResult SellProductPartial(int productId)
-		{
-			var product = ProductsRepository.GetProductById(productId);
-			return PartialView("_SellProduct", product);
-		}
+        public IActionResult SellProductPartial(int productId)
+        {
+            var product = viewSelectedProductUseCase.Execute(productId);
+            return PartialView("_SellProduct", product);
+        }
 
-        [HttpPost]
         public IActionResult Sell(SalesViewModel salesViewModel)
         {
             if (ModelState.IsValid)
             {
                 // Sell the product
-                var productToSell = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);                
-
-                if (productToSell != null)
-                {
-                    TransactionsRepository.Add(
-                        "Cashier1",
-                        productToSell.Id,
-                        productToSell.Name,
-                        productToSell.Price.HasValue ? productToSell.Price.Value : 0,
-                        productToSell.Quantity.HasValue ? productToSell.Quantity.Value : 0,
-                        salesViewModel.QuantityToSell);
-
-                    productToSell.Quantity -= salesViewModel.QuantityToSell;
-                    ProductsRepository.UpdateProduct(productToSell.Id, productToSell);
-                }
+                sellProductUseCase.Execute(
+                    "Cashier1",
+                    salesViewModel.SelectedProductId,
+                    salesViewModel.QuantityToSell);
             }
 
-            var product = ProductsRepository.GetProductById(salesViewModel.SelectedProductId);
-            salesViewModel.SelectedCategoryId = (product?.CategoryId) == null ? 0 : product.CategoryId.Value;
-            salesViewModel.Categories = CategoriesRepository.GetCategories();
+            var product = viewSelectedProductUseCase.Execute(salesViewModel.SelectedProductId);
+            salesViewModel.SelectedCategoryId = (product?.CategoryId == null) ? 0 : product.CategoryId.Value;
+            salesViewModel.Categories = viewCategoriesUseCase.Execute();
 
             return View("SalesIndex", salesViewModel);
         }
-	}
+    }
 }

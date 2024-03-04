@@ -26,7 +26,7 @@
 
             @if (Model.Categories != null && Model.Categories.Count() > 0)
             {
-                @foreach (Category category in Model.Categories)
+                @foreach (var category in Model.Categories)
                 {
                     <option value="@category.Id">@category.Name</option>
                 }
