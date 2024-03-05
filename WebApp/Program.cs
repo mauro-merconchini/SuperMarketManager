@@ -1,13 +1,20 @@
 using Plugins.DataStore.InMemory;
+using Plugins.DataStore.SQL;
 using UseCases;
 using UseCases.CategoriesUseCases;
 using UseCases.ProductsUseCases;
 using UseCases.TransactionsUseCases;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddDbContext<SuperMarketContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SuperMarketManagement"));
+});
 
 // Service Collection
 // Singleton: there's only going to be one instance in the entire application (makes sense for the in-memory DB)
